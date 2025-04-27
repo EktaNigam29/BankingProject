@@ -1,8 +1,11 @@
 package StepDefinition;
 
 import java.awt.AWTException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
@@ -78,7 +81,7 @@ public class StepDefinition extends BaseClass{
 	public void user_enters_the_phonenumber_as(String phonenumber) {
 		   addExplicitWait(By.xpath("//input[@name='Phone']"));
 		signup.enterPhone(phonenumber);
-		//scrollDown();
+	
 		
 		
 	}
@@ -86,8 +89,8 @@ public class StepDefinition extends BaseClass{
 	@Given("user enters the dateofbirth as {string}")
 	public void user_enters_the_dateofbirth_as(String DOB) {
 		  addExplicitWait(By.xpath("//input[contains(@class, 't-input t-datepicker')]"));
-		  scrollDown();
-		  signup.enterDOB(DOB);
+	 signup.enterDOB(DOB);
+			scrollDown();
 			}
 
 	@Given("user selects the gender")
@@ -211,57 +214,35 @@ public class StepDefinition extends BaseClass{
 	
 	//----------------------------Contact Us Functionality --------------------------------//
 
-	@Given("user clicks on ContactUs button in WebPage")
-	public void user_clicks_on_contact_us_button_in_web_page() {
+
+@Given("user enter the below details")
+	public void user_enter_the_below_details(io.cucumber.datatable.DataTable usercredentials) {
+		
+		List<List<String>> data=usercredentials.asLists(String.class);
 		contactUs.clickOnContactUs();
-	}
-		
-	
-
-	@Given("user enters name as {string}")
-	public void user_enters_name_as(String contact_name) {
-		contactUs.enterContactName(contact_name);
-	}
-
-	@Given("user enters email as {string}")
-	public void user_enters_email_as(String contact_email) {
-		contactUs.enterEmailAddress(contact_email);
-	}
-
-	@Given("user enters phone as {string}")
-	public void user_enters_phone_as(String contact_phone) {
+		contactUs.enterContactName(data.get(1).get(0));
+		contactUs.enterEmailAddress(data.get(1).get(1));
 		 scrollDown();
-		contactUs.enterPhoneNumber(contact_phone);
-	}
-
-	@Given("user enters address as {string}")
-	public void user_enters_address_as(String contact_address) {
-		contactUs.enterContactAddress(contact_address);
-	}
-
-	@Given("user enters country as {string}")
-	public void user_enters_country_as(String contact_country) {
-		contactUs.enterContactCountry(contact_country);
-	}
-
-	@Given("user enters zip as {string}")
-	public void user_enters_zip_as(String contact_zip) {
-		contactUs.enterContactZip(contact_zip);
-	}
-
-	@When("user clicks on Submit button in ContactUs page")
-	public void user_clicks_on_submit_button_in_contact_us_page() {
-		contactUs.clickOnSumbitButton();
-	}
-
-	@Then("user will get a success message in ContactUs page")
-	public void user_will_get_a_success_message_in_contact_us_page() {
+		contactUs.enterPhoneNumber(data.get(1).get(2));
+		contactUs.enterContactAddress(data.get(1).get(3));
+		contactUs.enterContactCountry(data.get(1).get(4));
+		contactUs.enterContactZip(data.get(1).get(5));
+		contactUs.clickOnSumbitButton();}
+		@Then("user will get a success message in ContactUs page")
+		public void user_will_get_a_success_message_in_contact_us_page() {
+		  
+		 
 		addExplicitWait(By.xpath("//div[@class='js-successbox t-form__successbox t-text t-text_md']"));
-String contactusmsg=addValidateMessage(By.xpath("//div[@class='js-successbox t-form__successbox t-text t-text_md']"));
-		
-		Assert.assertEquals(contactusmsg,ActualMessage);
-		System.out.println(contactusmsg);
-	}
+			String contactusmsg=addValidateMessage(By.xpath("//div[@class='js-successbox t-form__successbox t-text t-text_md']"));
+					
+					Assert.assertEquals(contactusmsg,ActualMessage);
+					System.out.println(contactusmsg);
+		}
+
+	
+	 
+	
+	
 	//----------------------------End of ContactUs Functionality-------------------//
 	
 	//------------------------------Account Details Functionality --------------------//

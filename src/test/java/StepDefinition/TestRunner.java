@@ -10,7 +10,7 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(
 	features="src\\test\\java\\FeatureFiles",
 	glue= {"StepDefinition"},
-	//tags="@test3",
+	tags="@test5",
 	dryRun=false,//true will notexceute if steps are unimplemented
 	monochrome=false,//true will not change color
 	plugin= {"pretty", "html:target/HtmlReport/index.html", "json:target/CucumberReports/cucumber.json",
